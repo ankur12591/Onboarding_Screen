@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:onboarding_screen/base_project/common/constants.dart';
 import 'dart:core';
 
 import 'package:onboarding_screen/screens/components/default_button.dart';

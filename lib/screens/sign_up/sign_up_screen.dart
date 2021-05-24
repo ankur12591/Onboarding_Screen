@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding_screen/base_project/common/constants.dart';
-import 'package:onboarding_screen/screens/components/default_button.dart';
 import 'package:onboarding_screen/screens/components/socal_card.dart';
-import 'package:onboarding_screen/screens/sign_in/sign_in_form.dart';
 import 'package:onboarding_screen/screens/sign_up/sign_up_form.dart';
 
 class SignUpScreen extends StatelessWidget {
