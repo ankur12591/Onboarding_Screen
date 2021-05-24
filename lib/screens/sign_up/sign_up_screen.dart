@@ -3,9 +3,9 @@ import 'package:onboarding_screen/base_project/common/constants.dart';
 import 'package:onboarding_screen/screens/components/default_button.dart';
 import 'package:onboarding_screen/screens/components/socal_card.dart';
 import 'package:onboarding_screen/screens/sign_in/sign_in_form.dart';
-import 'package:onboarding_screen/screens/sign_up/sign_up_screen.dart';
+import 'package:onboarding_screen/screens/sign_up/sign_up_form.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   late double height, width;
 
   @override
@@ -15,7 +15,7 @@ class SignInScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In"),
+        title: Text("Sign Up"),
       ),
       body: SafeArea(
         child: SizedBox(
@@ -30,7 +30,7 @@ class SignInScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: height * 0.04),
                   Text(
-                    "Welcome Back",
+                    "Register Account",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 0.08 * width,
@@ -38,11 +38,11 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Sign in with your email and password  \nor continue with social media",
+                    "Complete your details or continue \nwith social media",
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: height * 0.06),
-                  SignInForm(),
+                  SignUpForm(),
                   SizedBox(height: height * 0.02),
                   Container(
                     //color: Colors.amber,
@@ -67,33 +67,15 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // SizedBox(height: height * 0.04),
+                  //SizedBox(height: height * 0.04),
                   Container(
-                    //color: Colors.amber,
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don’t have an account? ",
-                          style: TextStyle(fontSize: width * 0.044),
-                        ),
-                        GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpScreen())),
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                fontSize: width * 0.044, color: kPrimaryColor),
-                          ),
-                        ),
-                      ],
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 25),
+                    child: Text(
+                      'By continuing your confirm that you agree \nwith our Term and Condition',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.caption,
                     ),
-                  ),
+                  )
 
                   //SizedBox(height: 0.03 * height,),
                   // NoAccountText(),

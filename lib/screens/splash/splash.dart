@@ -84,7 +84,10 @@ class _SplashScreenState extends State<SplashScreen> {
                       DefaultButton(
                         text: "Continue",
                         press: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignInScreen()));
                         },
                         //  press: () {
                         // Navigator.pushNamed(context, SignInScreen.routeName);
