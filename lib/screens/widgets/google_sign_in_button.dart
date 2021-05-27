@@ -37,7 +37,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => GoogleSignInHomeScreen(
-                       // user: user,
+                        user: user,
                       ),
                     ),
                   );
@@ -63,14 +63,12 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                           height: 22.0,
                         ),
 
-                        // ImageIcon(
-                        //     AssetImage('assets/icons/facebook.png'),
-                        //     size: 22.0)
                       ),
                       SizedBox(width: 10.0),
                       Center(
                           child: Text('Login with google',
-                              style: TextStyle(fontFamily: 'Trueno'))),
+                              //style: TextStyle(fontFamily: 'Trueno')
+                          )),
                     ],
                   ),
                 ),

@@ -150,7 +150,8 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
                         SizedBox(width: 10.0),
                         Center(
                             child: Text('Login with facebook',
-                                style: TextStyle(fontFamily: 'Trueno'))),
+                               // style: TextStyle(fontFamily: 'Trueno')
+                            )),
                       ],
                     ),
                   )),

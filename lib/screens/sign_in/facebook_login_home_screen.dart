@@ -11,11 +11,13 @@ import 'package:http/http.dart' as http;
 
 class FacebookSignInHomeScreen extends StatefulWidget {
   @override
-  _FacebookSignInHomeScreenState createState() => _FacebookSignInHomeScreenState();
+  _FacebookSignInHomeScreenState createState() =>
+      _FacebookSignInHomeScreenState();
 }
 
 class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
   bool _isSigningIn = false;
+  var profileData;
 
   late User _user;
 
@@ -25,7 +27,14 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
 
   late String _message;
 
-  Future<dynamic> _login() async {
+  void onLoginStatusChanged(bool _isSigningIn, {profileData}) {
+    setState(() {
+      this._isSigningIn = _isSigningIn;
+      this.profileData = profileData;
+    });
+  }
+
+  void initiateFacebookLogin() async {
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
     switch (result.status) {
@@ -33,12 +42,16 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
         final FacebookAccessToken accessToken = result.accessToken;
         final String token = result.accessToken.token;
         final response = await http.get(Uri.parse(
-            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
+            //'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=${result.accessToken.token}'));
 //        final profile = jsonDecode(response.body);
         final profile = Map<String, dynamic>.from(json.decode(response.body));
 
-        print(profile);
-        return profile;
+        print(profile.toString());
+        //return profile;
+
+        onLoginStatusChanged(true, profileData: profile);
+        break;
 
       // _showMessage('''
       //  Logged in!
@@ -90,7 +103,7 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
       // backgroundColor: CustomColors.firebaseNavy,
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical:48.0),
+          padding: const EdgeInsets.symmetric(vertical: 48.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -109,11 +122,35 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
                 scale: 5,
               ),
               //SizedBox(height: 40),
+
+              // Container(
+              //   height: 200.0,
+              //   width: 200.0,
+              //   decoration: BoxDecoration(
+              //     shape: BoxShape.circle,
+              //     image: DecorationImage(
+              //       fit: BoxFit.fill,
+              //       image: NetworkImage(
+              //         profileData['picture']['data']['url'],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 28.0),
+              // Text(
+              //   "Logged in as: ${profileData['name']}",
+              //   style: TextStyle(
+              //     fontSize: 20.0,
+              //   ),
+              // ),
+
+              // _displayUserData(profileData),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 20,horizontal: 35),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
                 child: Text(
-                  'You are now signed in using your Google account. '
-                  'To sign out of your account click the "Sign Out" button below.', textAlign: TextAlign.center,
+                  'You are now signed in using your Facebook account. '
+                  'To sign out of your account click the "Sign Out" button below.',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       color: CustomColors.firebaseNavy.withOpacity(0.9),
                       fontSize: 14,
@@ -138,43 +175,15 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
                           borderRadius: BorderRadius.circular(40)),
                       onPressed: () {
                         // _logOut();
-                        // print(
-                        //     'Logged out successfully. \nYou can now navigate to Home Page.');
+                        print(
+                            'Logged out successfully. \nYou can now navigate to Home Page.');
 
                         //signOutFacebook();
 
                         _logOut();
                         Navigator.pop(context);
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //     MaterialPageRoute(builder: (context) {
-                        //   return SignInScreen();
-                        // }), ModalRoute.withName('/'));
-
-                        // _logOut().then((user) {
-                        //   print(
-                        //       'Logged out successfully. \nYou can now navigate to Home Page.');
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => SignInScreen()));
-                        //
-                        //   print('Error while LogOut.');
-                        // });
-
-                        // _logOut().then((user) {
-                        //   if (user != null) {
-                        //     print(
-                        //         'Logged out successfully. \nYou can now navigate to Home Page.');
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => SignInScreen()));
-                        //   } else {
-                        //     print('Error while LogOut.');
-                        //   }
-                        // });
                       },
-                      color: Colors.black,
+                      color: CustomColors.firebaseNavy.withOpacity(0.9),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -188,66 +197,34 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
           ),
         ),
       ),
-      // body: SafeArea(
-      //   child: Padding(
-      //     padding: const EdgeInsets.only(
-      //       left: 16.0,
-      //       right: 16.0,
-      //       bottom: 20.0,
-      //     ),
-      //     child: Column(
-      //       mainAxisSize: MainAxisSize.max,
-      //       children: [
-      //         Row(),
-      //         Expanded(
-      //           child: Column(
-      //             mainAxisSize: MainAxisSize.min,
-      //             mainAxisAlignment: MainAxisAlignment.center,
-      //             children: [
-      //               Flexible(
-      //                 flex: 1,
-      //                 child: Image.asset(
-      //                   'assets/firebase_logo.png',
-      //                   height: 160,
-      //                 ),
-      //               ),
-      //               SizedBox(height: 20),
-      //               Text(
-      //                 'FlutterFire',
-      //                 style: TextStyle(
-      //                   color: CustomColors.firebaseYellow,
-      //                   fontSize: 40,
-      //                 ),
-      //               ),
-      //               Text(
-      //                 'Authentication',
-      //                 style: TextStyle(
-      //                   color: CustomColors.firebaseOrange,
-      //                   fontSize: 40,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         FutureBuilder(
-      //           future: Authentication.initializeFirebase(context: context),
-      //           builder: (context, snapshot) {
-      //             if (snapshot.hasError) {
-      //               return Text('Error initializing Firebase');
-      //             } else if (snapshot.connectionState == ConnectionState.done) {
-      //               return GoogleSignInButton();
-      //             }
-      //             return CircularProgressIndicator(
-      //               valueColor: AlwaysStoppedAnimation<Color>(
-      //                 CustomColors.firebaseOrange,
-      //               ),
-      //             );
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
+    );
+  }
+
+  _displayUserData(profileData) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        // Container(
+        //   height: 200.0,
+        //   width: 200.0,
+        //   decoration: BoxDecoration(
+        //     shape: BoxShape.circle,
+        //     image: DecorationImage(
+        //       fit: BoxFit.fill,
+        //       image: NetworkImage(
+        //         profileData['picture']['data']['url'],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        SizedBox(height: 28.0),
+        // Text(
+        //   "Logged in as: ${profileData}",
+        //   style: TextStyle(
+        //     fontSize: 20.0,
+        //   ),
+        // ),
+      ],
     );
   }
 }
