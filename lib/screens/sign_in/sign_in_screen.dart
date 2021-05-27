@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
-import 'package:onboarding_screen/screens/components/default_button.dart';
-import 'package:onboarding_screen/screens/components/socal_card.dart';
 import 'package:onboarding_screen/screens/sign_in/sign_in_form.dart';
 import 'package:onboarding_screen/screens/sign_up/sign_up_screen.dart';
+import 'package:onboarding_screen/screens/widgets/facebook_sign_in_button.dart';
+import 'package:onboarding_screen/screens/widgets/google_sign_in_button.dart';
+import 'package:onboarding_screen/services/authentication.dart';
 
 class SignInScreen extends StatelessWidget {
   late double height, width;
@@ -44,34 +45,42 @@ class SignInScreen extends StatelessWidget {
                   SizedBox(height: height * 0.06),
                   SignInForm(),
                   SizedBox(height: height * 0.02),
-                  Container(
-                    //color: Colors.amber,
-                    child: Container(
-                      //padding: const EdgeInsets.all(4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SocalCard(
-                            icon: "assets/icons/google-icon.svg",
-                            press: () {},
-                          ),
-                          SocalCard(
-                            icon: "assets/icons/facebook-2.svg",
-                            press: () {},
-                          ),
-                          // SocalCard(
-                          //   icon: "assets/icons/twitter.svg",
-                          //   press: () {},
-                          // ),
-                        ],
-                      ),
+
+                  //SizedBox(height: height * 0.02),
+                  Text(
+                    "Or",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 0.05 * width,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+
+                  SizedBox(height: height * 0.02),
+                  //GoogleSignInButton(),
+                  FutureBuilder(
+                    future: Authentication.initializeFirebase(context: context),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error initializing Firebase');
+                      } else if (snapshot.connectionState == ConnectionState.done) {
+                        return GoogleSignInButton();
+                      }
+                      return CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          CustomColors.firebaseOrange,
+                        ),
+                      );
+                    },
+                  ),
+                 // SizedBox(height: height * 0.02),
+                  FacebookSignInButton(),
+                  SizedBox(height: height * 0.02),
+
                   // SizedBox(height: height * 0.04),
                   Container(
                     //color: Colors.amber,
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -19,7 +19,7 @@ class DefaultButton extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 0.07 * height,
+      height: 50,
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: kPrimaryColor,
