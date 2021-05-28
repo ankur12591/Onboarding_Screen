@@ -9,74 +9,7 @@ import 'package:onboarding_screen/screens/sign_in/google_login_home_screen.dart'
 import 'package:http/http.dart' as http;
 
 class Authentication {
-  String successMessage = '';
-  bool _isSigningIn = false;
-
-  //Facebook login async method
-
-  static final FacebookLogin facebookSignIn = new FacebookLogin();
-
-  late String _message;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _login().whenComplete((){
-  //     setState(() {});
-  //   });
-  // }
-
-  Future<dynamic> _login() async {
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken accessToken = result.accessToken;
-        final String token = result.accessToken.token;
-        final response = await http.get(Uri.parse(
-            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
-//        final profile = jsonDecode(response.body);
-        final profile = Map<String, dynamic>.from(json.decode(response.body));
-
-        print(profile);
-        return profile;
-
-      // _showMessage('''
-      //  Logged in!
-      //
-      //  Token: ${accessToken.token}
-      //  User id: ${accessToken.userId}
-      //
-      //  Expires: ${accessToken.expires}
-      //  Permissions: ${accessToken.permissions}
-      //  Declined permissions: ${accessToken.declinedPermissions}
-      //  ''');
-      // break;
-      case FacebookLoginStatus.cancelledByUser:
-        _showMessage('Login cancelled by the user.');
-
-        facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
-        break;
-
-      case FacebookLoginStatus.error:
-        _showMessage('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
-    }
-  }
-
-  Future<Null> _logOut() async {
-    await facebookSignIn.logOut();
-    _showMessage('Logged out.');
-  }
-
-  void _showMessage(String message) {
-    // setState(() {
-    //   _isSigningIn = true;
-    //   // var _user = user ;
-    //   _message = message;
-    // });
-  }
+  // Google Sign In & Sign Out methods
 
   static SnackBar customSnackBar({required String content}) {
     return SnackBar(
@@ -187,5 +120,62 @@ class Authentication {
         ),
       );
     }
+  }
+
+  //Facebook Sign In & Sign Out methods
+
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
+
+  Future<dynamic> login() async {
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        final String token = result.accessToken.token;
+        final response = await http.get(Uri.parse(
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
+//        final profile = jsonDecode(response.body);
+        final profile = Map<String, dynamic>.from(json.decode(response.body));
+
+        print(profile);
+        return profile;
+
+      // _showMessage('''
+      //  Logged in!
+      //
+      //  Token: ${accessToken.token}
+      //  User id: ${accessToken.userId}
+      //
+      //  Expires: ${accessToken.expires}
+      //  Permissions: ${accessToken.permissions}
+      //  Declined permissions: ${accessToken.declinedPermissions}
+      //  ''');
+      // break;
+      case FacebookLoginStatus.cancelledByUser:
+        _showMessage('Login cancelled by the user.');
+
+        facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
+        break;
+
+      case FacebookLoginStatus.error:
+        _showMessage('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
+    }
+  }
+
+  static Future<void> logOut() async {
+    await facebookSignIn.logOut();
+    print(
+        'User Logged out. Logged out successfully. \nYou are now navigated to Home Page."');
+  }
+
+  void _showMessage(String message) {
+    // setState(() {
+    //   _isSigningIn = true;
+    //   // var _user = user ;
+    //   _message = message;
+    // });
   }
 }

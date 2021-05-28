@@ -14,11 +14,13 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
   String successMessage = '';
   bool _isSigningIn = false;
 
-  //Facebook login async method
+  // Facebook Sign In & Sign Out methods
 
   static final FacebookLogin facebookSignIn = new FacebookLogin();
 
   late String _message;
+
+  var profileData;
 
   Future<dynamic> _login() async {
     setState(() {
@@ -35,9 +37,13 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
             'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
 //        final profile = jsonDecode(response.body);
         final profile = Map<String, dynamic>.from(json.decode(response.body));
+        print(profile.toString());
 
-        print(profile);
-        return profile;
+        onLoginStatusChanged(true, profileData: profile);
+        break;
+
+      // print(profile);
+      // return profile;
 
       // _showMessage('''
       //  Logged in!
@@ -76,6 +82,13 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
     });
   }
 
+  void onLoginStatusChanged(bool _isSigningIn, {profileData}) {
+    setState(() {
+      // this._isSigningIn = _isSigningIn;
+      this.profileData = profileData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -91,8 +104,8 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
             )
           : GestureDetector(
               onTap: () {
-                _login().then((user) {
-                  if (user != null) {
+                _login().then((profile) {
+                  if (profileData != null) {
                     print(
                         'Logged in successfully. \nYou are now navigated to Home Page.');
 

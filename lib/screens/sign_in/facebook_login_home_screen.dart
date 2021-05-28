@@ -78,6 +78,7 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
               //   ),
               // ),
 
+
               // _displayUserData(profileData),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
@@ -107,17 +108,17 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40)),
-                      onPressed: () {
-                        // _logOut();
+                      onPressed: () async {
                         setState(() {
                           _isSigningOut = true;
                         });
                         print(
                             'Logged out successfully. \nYou can now navigate to Home Page.');
 
-                        //signOutFacebook();
+                        facebookSignIn.isLoggedIn
+                            .then((isLoggedIn) => isLoggedIn ? _logOut() : {});
 
-                        _logOut();
+                        //await Authentication.logOut();
                         setState(() {
                           _isSigningOut = false;
                         });
@@ -158,12 +159,12 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
         //   ),
         // ),
         SizedBox(height: 28.0),
-        // Text(
-        //   "Logged in as: ${profileData}",
-        //   style: TextStyle(
-        //     fontSize: 20.0,
-        //   ),
-        // ),
+        Text(
+          "Logged in as: ${profileData}",
+          style: TextStyle(
+            fontSize: 20.0,
+          ),
+        ),
       ],
     );
   }
