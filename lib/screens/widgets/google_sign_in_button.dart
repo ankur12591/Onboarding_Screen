@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onboarding_screen/screens/sign_in/google_login_home_screen.dart';
-import 'package:onboarding_screen/screens/user_info/user_info_screen.dart';
 import 'package:onboarding_screen/services/authentication.dart';
 
 class GoogleSignInButton extends StatefulWidget {
@@ -18,8 +17,13 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 16.0),
       child: _isSigningIn
-          ? CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ? SizedBox(
+              height: 35,
+              width: 35,
+              child: CircularProgressIndicator(
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(Colors.deepOrangeAccent),
+              ),
             )
           : GestureDetector(
               onTap: () async {
@@ -27,7 +31,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   _isSigningIn = true;
                 });
                 User? user =
-                await Authentication.signInWithGoogle(context: context);
+                    await Authentication.signInWithGoogle(context: context);
 
                 setState(() {
                   _isSigningIn = false;
@@ -62,13 +66,13 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                           "assets/icons/google-icon.svg",
                           height: 22.0,
                         ),
-
                       ),
                       SizedBox(width: 10.0),
                       Center(
-                          child: Text('Login with google',
-                              //style: TextStyle(fontFamily: 'Trueno')
-                          )),
+                          child: Text(
+                        'Login with google',
+                        //style: TextStyle(fontFamily: 'Trueno')
+                      )),
                     ],
                   ),
                 ),

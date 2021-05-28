@@ -3,11 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
-import 'package:onboarding_screen/screens/widgets/google_sign_in_button.dart';
-import 'package:onboarding_screen/services/authentication.dart';
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 
 class FacebookSignInHomeScreen extends StatefulWidget {
   @override
@@ -16,65 +11,18 @@ class FacebookSignInHomeScreen extends StatefulWidget {
 }
 
 class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
-  bool _isSigningIn = false;
+  bool _isSigningOut = false;
   var profileData;
-
-  late User _user;
 
   //Facebook login async method
 
   static final FacebookLogin facebookSignIn = new FacebookLogin();
 
-  late String _message;
-
-  void onLoginStatusChanged(bool _isSigningIn, {profileData}) {
+  void onLogOutStatusChanged(bool _isSigningOut, {profileData}) {
     setState(() {
-      this._isSigningIn = _isSigningIn;
+      this._isSigningOut = _isSigningOut;
       this.profileData = profileData;
     });
-  }
-
-  void initiateFacebookLogin() async {
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken accessToken = result.accessToken;
-        final String token = result.accessToken.token;
-        final response = await http.get(Uri.parse(
-            //'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'
-            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=${result.accessToken.token}'));
-//        final profile = jsonDecode(response.body);
-        final profile = Map<String, dynamic>.from(json.decode(response.body));
-
-        print(profile.toString());
-        //return profile;
-
-        onLoginStatusChanged(true, profileData: profile);
-        break;
-
-      // _showMessage('''
-      //  Logged in!
-      //
-      //  Token: ${accessToken.token}
-      //  User id: ${accessToken.userId}
-      //
-      //  Expires: ${accessToken.expires}
-      //  Permissions: ${accessToken.permissions}
-      //  Declined permissions: ${accessToken.declinedPermissions}
-      //  ''');
-      // break;
-      case FacebookLoginStatus.cancelledByUser:
-        _showMessage('Login cancelled by the user.');
-
-        facebookSignIn.loginBehavior = FacebookLoginBehavior.webViewOnly;
-        break;
-
-      case FacebookLoginStatus.error:
-        _showMessage('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
-    }
   }
 
   Future<void> _logOut() async {
@@ -82,20 +30,6 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
     print(
         'User Logged out. Logged out successfully. \nYou are now navigated to Home Page."');
   }
-
-  void _showMessage(String message) {
-    setState(() {
-      _isSigningIn = false;
-      // var _user = user ;
-      _message = message;
-    });
-  }
-
-  // void signOutFacebook() async{
-  //   await facebookSignIn.logOut();
-  //   //await _googleSignIn.signOut();
-  //   print("User Sign Out. Logged out successfully. \nYou are now navigated to Home Page.");
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +99,7 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
               //   profile.displayName,
               //   style: TextStyle(fontSize: 30),
               // ),
-              _isSigningIn
+              _isSigningOut
                   ? CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
@@ -175,12 +109,18 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
                           borderRadius: BorderRadius.circular(40)),
                       onPressed: () {
                         // _logOut();
+                        setState(() {
+                          _isSigningOut = true;
+                        });
                         print(
                             'Logged out successfully. \nYou can now navigate to Home Page.');
 
                         //signOutFacebook();
 
                         _logOut();
+                        setState(() {
+                          _isSigningOut = false;
+                        });
                         Navigator.pop(context);
                       },
                       color: CustomColors.firebaseNavy.withOpacity(0.9),

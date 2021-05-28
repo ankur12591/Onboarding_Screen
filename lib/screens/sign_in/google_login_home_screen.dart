@@ -25,6 +25,7 @@ class GoogleSignInHomeScreen extends StatefulWidget {
 
 class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
   bool _isSigningIn = false;
+  bool _isSigningOut = false;
 
   late User _user;
 
@@ -152,9 +153,13 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
               //   profile.displayName,
               //   style: TextStyle(fontSize: 30),
               // ),
-              _isSigningIn
-                  ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              _isSigningOut
+                  ? SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
                     )
                   : FlatButton(
                       //elevation: 5,
@@ -166,13 +171,13 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                         //     'Logged out successfully. \nYou can now navigate to Home Page.');
 
                         setState(() {
-                          //     _isSigningOut = true;
+                          _isSigningOut = true;
                         });
                         await Authentication.signOut(context: context);
                         print(
                             'Logged out successfully. \nYou can now navigate to Home Page.');
                         setState(() {
-                          //  _isSigningOut = false;
+                          _isSigningOut = false;
                         });
                         Navigator.of(context)
                             .pushReplacement(_routeToSignInScreen());

@@ -37,7 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Scaffold(
       // backgroundColor: ColorConstants.primaryColor,
-      body: SafeArea(
+      body:
+
+
+      SafeArea(
         child: SizedBox(
           width: double.infinity,
           child: Column(
@@ -87,7 +90,16 @@ class _SplashScreenState extends State<SplashScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignInScreen()));
+                                  builder: (context) =>
+                                      // Container(height: 15,
+                                      //   width: 15,
+                                      //   child: CircularProgressIndicator(
+                                      //     valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrangeAccent),
+                                      //   ),
+                                      // )
+                                      SignInScreen()
+                              )
+                          );
                         },
                         //  press: () {
                         // Navigator.pushNamed(context, SignInScreen.routeName);

@@ -1,17 +1,9 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-
-//import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:onboarding_screen/screens/sign_in/facebook_login_home_screen.dart';
-import 'package:onboarding_screen/screens/user_info/user_info_screen.dart';
-import 'package:onboarding_screen/services/authentication.dart';
 
 class FacebookSignInButton extends StatefulWidget {
   @override
@@ -28,15 +20,11 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
 
   late String _message;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _login().whenComplete((){
-  //     setState(() {});
-  //   });
-  // }
-
   Future<dynamic> _login() async {
+    setState(() {
+      _isSigningIn = true;
+    });
+
     final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
 
     switch (result.status) {
@@ -93,41 +81,33 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 16.0),
       child: _isSigningIn
-          ? CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ? SizedBox(
+              height: 35,
+              width: 35,
+              child: CircularProgressIndicator(
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(Colors.deepOrangeAccent),
+              ),
             )
           : GestureDetector(
               onTap: () {
-                //_login();
-                // Navigator.push(
-                //               context,
-                //               MaterialPageRoute(
-                //                   builder: (context) => SignInScreen()));
-                setState(() {
-                  _isSigningIn = true;
-                });
-
                 _login().then((user) {
                   if (user != null) {
                     print(
                         'Logged in successfully. \nYou are now navigated to Home Page.');
+
                     setState(() {
-                      _isSigningIn = true;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FacebookSignInHomeScreen()));
+                      _isSigningIn = false;
                     });
 
-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FacebookSignInHomeScreen()));
                   } else {
                     print('Error while Login.');
                   }
-                  setState(() {
-                    _isSigningIn = false;
-                  });
                 });
-
               },
               child: Container(
                   height: 50.0,
@@ -149,9 +129,9 @@ class _FacebookSignInButtonState extends State<FacebookSignInButton> {
                                 size: 22.0)),
                         SizedBox(width: 10.0),
                         Center(
-                            child: Text('Login with facebook',
-                               // style: TextStyle(fontFamily: 'Trueno')
-                            )),
+                            child: Text(
+                          'Login with facebook',
+                        )),
                       ],
                     ),
                   )),

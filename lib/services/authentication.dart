@@ -6,7 +6,6 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:onboarding_screen/screens/sign_in/google_login_home_screen.dart';
-import 'package:onboarding_screen/screens/user_info/user_info_screen.dart';
 import 'package:http/http.dart' as http;
 
 class Authentication {
