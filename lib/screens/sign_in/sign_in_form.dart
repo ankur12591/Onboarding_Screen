@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
+import 'package:onboarding_screen/helper/keyboard.dart';
 import 'dart:core';
 
 import 'package:onboarding_screen/screens/components/default_button.dart';
+import 'package:onboarding_screen/screens/login_success/login_success.dart';
 
 class SignInForm extends StatefulWidget {
   @override
@@ -16,6 +18,22 @@ class _SignInFormState extends State<SignInForm> {
   late String password;
   bool remember = false;
   late double height, width;
+  final List<String> errors = [];
+
+
+  void addError({required String error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
+
+  void removeError({required String error}) {
+    if (errors.contains(error))
+      setState(() {
+        errors.remove(error);
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +76,14 @@ class _SignInFormState extends State<SignInForm> {
           ),
           //Container(),
           // SizedBox(height: height * 0.036),
-          DefaultButton(text: "Continue", press: () {}),
+          DefaultButton(text: "Continue", press: () {
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LoginSuccessScreen()));
+
+          }),
         ],
       ),
     );
@@ -67,24 +92,24 @@ class _SignInFormState extends State<SignInForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      //onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
-        // if (value.isNotEmpty) {
-        //   removeError(error: kEmailNullError);
-        // } else if (emailValidatorRegExp.hasMatch(value)) {
-        //   removeError(error: kInvalidEmailError);
-        // }
-        // return null;
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
+        }
+        return null;
       },
       validator: (value) {
-        // if (value.isEmpty) {
-        //   addError(error: kEmailNullError);
-        //   return "";
-        // } else if (!emailValidatorRegExp.hasMatch(value)) {
-        //   addError(error: kInvalidEmailError);
-        //   return "";
-        // }
-        // return null;
+        if (value!.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
       },
       decoration: InputDecoration(
         labelText: "Email",
@@ -111,24 +136,24 @@ class _SignInFormState extends State<SignInForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      //onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
-        // if (value.isNotEmpty) {
-        //   removeError(error: kEmailNullError);
-        // } else if (emailValidatorRegExp.hasMatch(value)) {
-        //   removeError(error: kInvalidEmailError);
-        // }
-        // return null;
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
+        }
+        return null;
       },
       validator: (value) {
-        // if (value.isEmpty) {
-        //   addError(error: kEmailNullError);
-        //   return "";
-        // } else if (!emailValidatorRegExp.hasMatch(value)) {
-        //   addError(error: kInvalidEmailError);
-        //   return "";
-        // }
-        // return null;
+        if (value!.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
       },
       decoration: InputDecoration(
         labelText: "Password",

@@ -22,7 +22,7 @@ class SplashContent extends StatelessWidget {
       children: <Widget>[
         Spacer(),
         Text(
-          "TOKOTO",
+          "SHOPIFY",
           style: TextStyle(
             fontSize: 0.1 * width,
             //getProportionateScreenWidth(36),

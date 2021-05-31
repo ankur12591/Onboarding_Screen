@@ -40,10 +40,7 @@ class Constants {
   static DateFormat hmFormate = DateFormat("hh:mm");
 }
 
-class validationMsg {
-  static String emailNotEnter = 'Enter email';
-  static String noInternet = 'Please connect to the internet to continue.';
-}
+
 
 class reqserver {
   static String baseurl = 'https://php2.shaligraminfotech.com/owle/public/api/';
@@ -71,4 +68,22 @@ class CustomColors {
   static final Color firebaseYellow = Color(0xFFFFCA28);
   static final Color firebaseGrey = Color(0xFFECEFF1);
   static final Color googleBackground = Color(0xFF4285F4);
+}
+
+
+// Form Error
+final RegExp emailValidatorRegExp =
+RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+const String kEmailNullError = "Please Enter your email";
+const String kInvalidEmailError = "Please Enter Valid Email";
+const String kPassNullError = "Please Enter your password";
+const String kShortPassError = "Password is too short";
+const String kMatchPassError = "Passwords don't match";
+const String kNamelNullError = "Please Enter your name";
+const String kPhoneNumberNullError = "Please Enter your phone number";
+const String kAddressNullError = "Please Enter your address";
+
+class validationMsg {
+  static String emailNotEnter = 'Enter email';
+  static String noInternet = 'Please connect to the internet to continue.';
 }

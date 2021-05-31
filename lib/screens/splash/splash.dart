@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   int currentPage = 0;
   List splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
+      "text": "Welcome to Shopify, Let’s shop!",
       "image": "assets/images/splash_1.png"
     },
     {

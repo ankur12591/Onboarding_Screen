@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
+import 'package:onboarding_screen/screens/home/home_screen.dart';
 import 'package:onboarding_screen/screens/sign_in/sign_in_screen.dart';
 import 'package:onboarding_screen/screens/widgets/google_sign_in_button.dart';
 import 'package:onboarding_screen/services/authentication.dart';
@@ -28,6 +29,8 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
   bool _isSigningOut = false;
 
   late User _user;
+
+  late double height, width;
 
   Route _routeToSignInScreen() {
     return PageRouteBuilder(
@@ -57,6 +60,9 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       // backgroundColor: CustomColors.firebaseNavy,
       body: SingleChildScrollView(
@@ -105,7 +111,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                         ),
                       ),
               ),
-              SizedBox(height: 16.0),
+              //SizedBox(height: 16.0),
 
               SizedBox(height: 16.0),
               Text(
@@ -133,11 +139,19 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                 ),
               ),
               //  SizedBox(height: 24.0),
+              Text(
+                "Login Success",
+                style: TextStyle(
+                  fontSize: width * 0.08,
+                  fontWeight: FontWeight.bold,
+                  color: CustomColors.firebaseNavy.withOpacity(0.8),
+                ),
+              ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
                 child: Text(
                   'You are now signed in using your Google account. '
-                  'To sign out of your account click the "Sign Out" button below.',
+                  'Go to homescreen or to sign out of your account click the "Sign Out" button below .',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: CustomColors.firebaseNavy.withOpacity(0.9),
@@ -153,6 +167,43 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
               //   profile.displayName,
               //   style: TextStyle(fontSize: 30),
               // ),
+
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  //elevation: 5,
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeScreen()));
+
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  color: CustomColors.firebaseNavy.withOpacity(0.9),
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Home',
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+
+              Text(
+                "Or",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 0.05 * width,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
               _isSigningOut
                   ? SizedBox(
                       height: 35,
@@ -161,37 +212,40 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     )
-                  : FlatButton(
-                      //elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40)),
-                      onPressed: () async {
-                        // _logOut();
-                        // print(
-                        //     'Logged out successfully. \nYou can now navigate to Home Page.');
+                  : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlatButton(
+                        //elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40)),
+                        onPressed: () async {
+                          // _logOut();
+                          // print(
+                          //     'Logged out successfully. \nYou can now navigate to Home Page.');
 
-                        setState(() {
-                          _isSigningOut = true;
-                        });
-                        await Authentication.signOut(context: context);
-                        print(
-                            'Logged out successfully. \nYou can now navigate to Home Page.');
-                        setState(() {
-                          _isSigningOut = false;
-                        });
-                        Navigator.of(context)
-                            .pushReplacement(_routeToSignInScreen());
-                      },
-                      color: CustomColors.firebaseNavy.withOpacity(0.9),
-                      child: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Sign Out',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                          textAlign: TextAlign.center,
+                          setState(() {
+                            _isSigningOut = true;
+                          });
+                          await Authentication.signOut(context: context);
+                          print(
+                              'Logged out successfully. \nYou can now navigate to Home Page.');
+                          setState(() {
+                            _isSigningOut = false;
+                          });
+                          Navigator.of(context)
+                              .pushReplacement(_routeToSignInScreen());
+                        },
+                        color: CustomColors.firebaseNavy.withOpacity(0.9),
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Sign Out',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
-                    ),
+                  ),
             ],
           ),
         ),

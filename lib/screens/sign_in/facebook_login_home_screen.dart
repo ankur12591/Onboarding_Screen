@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
+import 'package:onboarding_screen/screens/home/home_screen.dart';
 
 class FacebookSignInHomeScreen extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class FacebookSignInHomeScreen extends StatefulWidget {
 class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
   bool _isSigningOut = false;
   var profileData;
+
+  late double height, width;
 
   //Facebook login async method
 
@@ -33,6 +36,10 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
+
     return Scaffold(
       // backgroundColor: CustomColors.firebaseNavy,
       body: SingleChildScrollView(
@@ -80,11 +87,20 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
 
 
               // _displayUserData(profileData),
+              Text(
+                "Login Success",
+                style: TextStyle(
+                  fontSize: width * 0.08,
+                  fontWeight: FontWeight.bold,
+                  color: CustomColors.firebaseNavy.withOpacity(0.8),
+                ),
+              ),
+
               Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
                 child: Text(
                   'You are now signed in using your Facebook account. '
-                  'To sign out of your account click the "Sign Out" button below.',
+                  'Go to homescreen or to sign out of your account click the "Sign Out" button below.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: CustomColors.firebaseNavy.withOpacity(0.9),
@@ -100,39 +116,76 @@ class _FacebookSignInHomeScreenState extends State<FacebookSignInHomeScreen> {
               //   profile.displayName,
               //   style: TextStyle(fontSize: 30),
               // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  //elevation: 5,
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeScreen()));
+
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  color: CustomColors.firebaseNavy.withOpacity(0.9),
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Home',
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+
+              Text(
+                "Or",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 0.05 * width,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
               _isSigningOut
                   ? CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     )
-                  : RaisedButton(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40)),
-                      onPressed: () async {
-                        setState(() {
-                          _isSigningOut = true;
-                        });
-                        print(
-                            'Logged out successfully. \nYou can now navigate to Home Page.');
+                  : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40)),
+                        onPressed: () async {
+                          setState(() {
+                            _isSigningOut = true;
+                          });
+                          print(
+                              'Logged out successfully. \nYou can now navigate to Home Page.');
 
-                        facebookSignIn.isLoggedIn
-                            .then((isLoggedIn) => isLoggedIn ? _logOut() : {});
+                          facebookSignIn.isLoggedIn
+                              .then((isLoggedIn) => isLoggedIn ? _logOut() : {});
 
-                        //await Authentication.logOut();
-                        setState(() {
-                          _isSigningOut = false;
-                        });
-                        Navigator.pop(context);
-                      },
-                      color: CustomColors.firebaseNavy.withOpacity(0.9),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Sign Out',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
+                          //await Authentication.logOut();
+                          setState(() {
+                            _isSigningOut = false;
+                          });
+                          Navigator.pop(context);
+                        },
+                        color: CustomColors.firebaseNavy.withOpacity(0.9),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Sign Out',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
+                  ),
               //
             ],
           ),
