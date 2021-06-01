@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
 import 'package:onboarding_screen/screens/components/default_button.dart';
-import 'package:onboarding_screen/screens/home/home_screen.dart';
+import 'package:onboarding_screen/screens/furniture_home/Home/furniture_home.dart';
 
 class LoginSuccessScreen extends StatelessWidget {
   //static String routeName = "/login_success";
   late double height, width;
+  late double defaultSize;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class LoginSuccessScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                            builder: (context) => FurnitureHome()));
 
                   },
                 ),

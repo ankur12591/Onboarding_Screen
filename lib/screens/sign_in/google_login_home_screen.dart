@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
-import 'package:onboarding_screen/screens/home/home_screen.dart';
+import 'package:onboarding_screen/screens/furniture_home/Home/furniture_home.dart';
 import 'package:onboarding_screen/screens/sign_in/sign_in_screen.dart';
 import 'package:onboarding_screen/screens/widgets/google_sign_in_button.dart';
 import 'package:onboarding_screen/services/authentication.dart';
@@ -178,7 +178,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                            builder: (context) => FurnitureHome()));
 
                   },
                   shape: RoundedRectangleBorder(

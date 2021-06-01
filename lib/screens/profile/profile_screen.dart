@@ -8,6 +8,7 @@ import 'package:onboarding_screen/screens/stepper/stepper2/home.dart';
 import 'package:onboarding_screen/screens/stepper/stepper3.dart';
 import 'package:onboarding_screen/screens/stepper/stepper4.dart';
 import 'package:onboarding_screen/screens/stepper/stepper5.dart';
+import 'package:onboarding_screen/screens/stepper/stepper6.dart';
 
 import 'components/profile_menu.dart';
 import 'components/profile_pic.dart';
@@ -45,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => FAStepperExample ())),
+                        builder: (context) => MyApp ())),
               },
             ),
             ProfileMenu(
