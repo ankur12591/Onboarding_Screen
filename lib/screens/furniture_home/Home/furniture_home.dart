@@ -5,8 +5,8 @@ import 'package:onboarding_screen/screens/components/coustom_bottom_nav_bar.dart
 import 'package:onboarding_screen/screens/components/title_text.dart';
 import 'package:onboarding_screen/screens/furniture_home/Services/fetchCategories.dart';
 import 'package:onboarding_screen/screens/furniture_home/Services/fetchProducts.dart';
-import 'package:onboarding_screen/screens/furniture_home/constants.dart';
-import 'package:onboarding_screen/screens/furniture_home/size_config.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/constants.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/size_config.dart';
 import 'componants/categories.dart';
 import 'componants/recommend_product.dart';
 

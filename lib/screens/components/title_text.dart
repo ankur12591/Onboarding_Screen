@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding_screen/screens/furniture_home/size_config.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/size_config.dart';
 
 
 class TitleText extends StatelessWidget {

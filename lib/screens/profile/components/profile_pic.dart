@@ -33,45 +33,45 @@ class _ProfilePicState extends State<ProfilePic> {
     // _selectedImage;
   }
 
-  Future<void> uploadBlog() async {
-    if (_selectedImage != null) {
-      setState(() {
-        _isLoading = true;
-      });
-
-      // Upload Image to Firebase Storage
-
-      Reference firebaseStorageRef = FirebaseStorage.instance
-          .ref()
-          .child("profilePic")
-          .child("${randomAlphaNumeric(9)}.jpg");
-
-      final UploadTask task = firebaseStorageRef.putFile(_selectedImage);
-
-      await task.whenComplete(() async {
-        try {
-          imageUrl = await firebaseStorageRef.getDownloadURL();
-        } catch (e) {
-          print(e);
-        }
-      });
-
-      Map<String, dynamic> profileMap = {
-        "imageUrl": imageUrl,
-      };
-
-      FirebaseFirestore.instance
-          .collection("profile")
-          .add(profileMap)
-          .catchError((onError) {
-        print("facing an issue while uploading data to firestore : $onError");
-      });
-
-      // crudMethods.addData(profileMap).then((result) {
-      Navigator.pop(context);
-      //});
-    } else {}
-  }
+  // Future<void> uploadBlog() async {
+  //   if (_selectedImage != null) {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+  //
+  //     // Upload Image to Firebase Storage
+  //
+  //     Reference firebaseStorageRef = FirebaseStorage.instance
+  //         .ref()
+  //         .child("profilePic")
+  //         .child("${randomAlphaNumeric(9)}.jpg");
+  //
+  //     final UploadTask task = firebaseStorageRef.putFile(_selectedImage);
+  //
+  //     await task.whenComplete(() async {
+  //       try {
+  //         imageUrl = await firebaseStorageRef.getDownloadURL();
+  //       } catch (e) {
+  //         print(e);
+  //       }
+  //     });
+  //
+  //     Map<String, dynamic> profileMap = {
+  //       "imageUrl": imageUrl,
+  //     };
+  //
+  //     FirebaseFirestore.instance
+  //         .collection("profile")
+  //         .add(profileMap)
+  //         .catchError((onError) {
+  //       print("facing an issue while uploading data to firestore : $onError");
+  //     });
+  //
+  //     // crudMethods.addData(profileMap).then((result) {
+  //     Navigator.pop(context);
+  //     //});
+  //   } else {}
+  // }
 
   @override
   Widget build(BuildContext context) {

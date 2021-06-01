@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onboarding_screen/screens/furniture_home/Details/details_screen.dart';
 import 'package:onboarding_screen/screens/furniture_home/Home/componants/product_card.dart';
 import 'package:onboarding_screen/screens/furniture_home/models/Product.dart';
-import 'package:onboarding_screen/screens/furniture_home/size_config.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/size_config.dart';
 
 class RecommandProducts extends StatelessWidget {
   late double defaultSize;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/screens/components/title_text.dart';
-import 'package:onboarding_screen/screens/furniture_home/constants.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/constants.dart';
 import 'package:onboarding_screen/screens/furniture_home/models/Product.dart';
-import 'package:onboarding_screen/screens/furniture_home/size_config.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/size_config.dart';
 
 class ProductDescription extends StatelessWidget {
   final Product product;
@@ -25,6 +25,7 @@ class ProductDescription extends StatelessWidget {
 //
     return Container(
       decoration: BoxDecoration(color: Colors.white),
+
       padding: EdgeInsets.symmetric(vertical: defaultSize * 2), //20
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,7 @@ class ProductDescription extends StatelessWidget {
             child: FlatButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
-              color: kPrimaryColor,
+              color: Colors.deepOrangeAccent,
               onPressed: () {},
               child: Text(
                 "Add to Cart",

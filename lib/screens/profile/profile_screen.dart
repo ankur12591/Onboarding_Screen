@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/base_project/common/enums.dart';
 import 'package:onboarding_screen/screens/components/coustom_bottom_nav_bar.dart';
-import 'package:onboarding_screen/screens/profile/components/my_account.dart';
+import 'package:onboarding_screen/screens/profile/components/pic.dart';
 import 'package:onboarding_screen/screens/stepper/stepper1.dart';
 import 'package:onboarding_screen/screens/stepper/stepper2.dart';
 import 'package:onboarding_screen/screens/stepper/stepper2/home.dart';
-import 'package:onboarding_screen/screens/stepper/stepper3.dart';
-import 'package:onboarding_screen/screens/stepper/stepper4.dart';
-import 'package:onboarding_screen/screens/stepper/stepper5.dart';
+import 'package:onboarding_screen/screens/stepper/fastepper_example.dart';
+import 'package:onboarding_screen/screens/stepper/stepper_example.dart';
 import 'package:onboarding_screen/screens/stepper/stepper6.dart';
 
 import 'components/profile_menu.dart';
@@ -46,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyApp ())),
+                        builder: (context) => FAStepperExample ())),
               },
             ),
             ProfileMenu(

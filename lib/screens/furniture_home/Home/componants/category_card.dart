@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/screens/components/title_text.dart';
-import 'package:onboarding_screen/screens/furniture_home/constants.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/constants.dart';
 import 'package:onboarding_screen/screens/furniture_home/models/Categories.dart';
-import 'package:onboarding_screen/screens/furniture_home/size_config.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/size_config.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;

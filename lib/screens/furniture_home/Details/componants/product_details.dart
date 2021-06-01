@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:onboarding_screen/screens/furniture_home/constants.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/constants.dart';
 import 'package:onboarding_screen/screens/furniture_home/models/Product.dart';
-import 'package:onboarding_screen/screens/furniture_home/size_config.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/size_config.dart';
 
 class ProductDetails extends StatelessWidget {
   final Product product;

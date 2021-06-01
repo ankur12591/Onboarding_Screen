@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onboarding_screen/screens/furniture_home/Details/componants/product_description.dart';
 import 'package:onboarding_screen/screens/furniture_home/Details/componants/product_details.dart';
-import 'package:onboarding_screen/screens/furniture_home/constants.dart';
+import 'package:onboarding_screen/screens/furniture_home/components/constants.dart';
 import 'package:onboarding_screen/screens/furniture_home/models/Product.dart';
 
 class DetailsScreen extends StatelessWidget {
