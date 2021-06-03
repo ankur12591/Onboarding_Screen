@@ -9,6 +9,20 @@ import 'package:onboarding_screen/screens/splash/splash_content.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+const items = [
+  Color(0xFFFDE0D9),
+  Color(0xffF5F0E6),
+  Color(0xffEEEFF2),
+  Color(0xFFFCFFE9),
+  Color(0xffff9100),
+  Color(0xFFFB7883),
+  Color(0xffff1744),
+  Color(0xffff9100),
+  Color(0xff00695c),
+  Color(0xff5c6bc0),
+  Color(0xff37474f),
+  Color(0xfff50057),
+];
 
 class SplashScreen1 extends StatefulWidget {
   @override
@@ -25,8 +39,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
       "image": "assets/images/splash_1.png"
     },
     {
-      "text":
-          "We help people conect with store \naround India",
+      "text": "We help people conect with store \naround India",
       "image": "assets/images/splash_2.png"
     },
     {
@@ -35,12 +48,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
     },
   ];
 
-  final page = [
-
-
-
-  ];
-
+  final page = [];
 
   ValueNotifier<double> _notifier = ValueNotifier(0.0);
   final _button = GlobalKey();
@@ -68,8 +76,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
 
     return Scaffold(
       // backgroundColor: ColorConstants.primaryColor,
-      body:
-      Stack(
+      body: Stack(
         children: [
           // Custom Painter
           AnimatedBuilder(
@@ -92,10 +99,10 @@ class _SplashScreen1State extends State<SplashScreen1> {
                 Expanded(
                   flex: 3,
                   child:
-                  // Container(
-                  //   color: Colors.green,
-                  // )
-                  PageView.builder(
+                      // Container(
+                      //   color: Colors.green,
+                      // )
+                      PageView.builder(
                     controller: _pageController,
                     onPageChanged: (value) {
                       setState(() {
@@ -125,7 +132,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
                             splashData.length,
-                                (index) => buildDot(index: index),
+                            (index) => buildDot(index: index),
                           ),
                         ),
                         Spacer(flex: 3),
@@ -135,11 +142,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        LiquideSwipe()
-                                  //SignInScreen()
-                                )
-                            );
+                                    builder: (context) => SignInScreen()));
                           },
                           //  press: () {
                           // Navigator.pushNamed(context, SignInScreen.routeName);
@@ -208,97 +211,6 @@ class _SplashScreen1State extends State<SplashScreen1> {
           ),
         ],
       ),
-
-      // LiquidSwipe(
-      //   pages: LiquidSwipe(
-      //     pages: page,
-      //     enableLoop: true,
-      //     fullTransitionValue: 300,
-      //     enableSideReveal: true,
-      //
-      //     //enableSlideIcon: true,
-      //     waveType: WaveType.liquidReveal,
-      //     positionSlideIcon: 0.5,
-      //   ),,
-      //   enableLoop: true,
-      //   fullTransitionValue: 300,
-      //   enableSideReveal: true,
-      //
-      //   //enableSlideIcon: true,
-      //   waveType: WaveType.liquidReveal,
-      //   positionSlideIcon: 0.5,
-      // ),
-
-
-      // SafeArea(
-      //   child: SizedBox(
-      //     width: double.infinity,
-      //     child: Column(
-      //       children: <Widget>[
-      //         Expanded(
-      //           flex: 3,
-      //           child:
-      //               // Container(
-      //               //   color: Colors.green,
-      //               // )
-      //               PageView.builder(
-      //             onPageChanged: (value) {
-      //               setState(() {
-      //                 currentPage = value;
-      //               });
-      //             },
-      //             itemCount: splashData.length,
-      //             itemBuilder: (context, index) => SplashContent(
-      //               //image: splashData[index]["image"],
-      //               image: splashData[index]["image"],
-      //
-      //               text: splashData[index]['text'],
-      //             ),
-      //           ),
-      //         ),
-      //         Expanded(
-      //           flex: 2,
-      //           child: Padding(
-      //             padding: EdgeInsets.symmetric(
-      //               horizontal: 0.06 * width,
-      //               //getProportionateScreenWidth(20)
-      //             ),
-      //             child: Column(
-      //               children: <Widget>[
-      //                 Spacer(),
-      //                 Row(
-      //                   mainAxisAlignment: MainAxisAlignment.center,
-      //                   children: List.generate(
-      //                     splashData.length,
-      //                     (index) => buildDot(index: index),
-      //                   ),
-      //                 ),
-      //                 Spacer(flex: 3),
-      //                 DefaultButton(
-      //                   text: "Continue",
-      //                   press: () {
-      //                     Navigator.push(
-      //                         context,
-      //                         MaterialPageRoute(
-      //                             builder: (context) =>
-      //                             LiquideSwipe()
-      //                                 //SignInScreen()
-      //                         )
-      //                     );
-      //                   },
-      //                   //  press: () {
-      //                   // Navigator.pushNamed(context, SignInScreen.routeName);
-      //                   // },
-      //                 ),
-      //                 Spacer(),
-      //               ],
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -316,34 +228,6 @@ class _SplashScreen1State extends State<SplashScreen1> {
   }
 }
 
-
-
-
-
-
-
-
-
-
-const items = [
-  Color(0xFFFDE0D9),
-  Color(0xffF5F0E6),
-  Color(0xffEEEFF2),
-  Color(0xFFFCFFE9),
-  Color(0xffff9100),
-  Color(0xFFFB7883),
-  Color(0xffff1744),
-  Color(0xffff9100),
-  Color(0xff00695c),
-  Color(0xff5c6bc0),
-  Color(0xff37474f),
-  Color(0xfff50057),
-];
-
-
-
-
-
 class FlowPainter extends CustomPainter {
   final BuildContext context;
   final ValueNotifier<double> notifier;
@@ -352,7 +236,11 @@ class FlowPainter extends CustomPainter {
 
   RenderBox? _renderBox;
 
-  FlowPainter({required this.context, required this.notifier, required this.target, required this.colors});
+  FlowPainter(
+      {required this.context,
+      required this.notifier,
+      required this.target,
+      required this.colors});
 
   @override
   void paint(Canvas canvas, Size size) {
