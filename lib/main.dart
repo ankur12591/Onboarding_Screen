@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/screens/splash/splash.dart';
+import 'package:onboarding_screen/screens/splash/splash_with_animation.dart';
 import 'package:onboarding_screen/theme.dart';
 
 void main() async {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
-      home: SplashScreen(),
+      home: SplashScreen1(),
       // We use routeName so that we dont need to remember the name
      // initialRoute: SplashScreen.routeName,
      // routes: routes,

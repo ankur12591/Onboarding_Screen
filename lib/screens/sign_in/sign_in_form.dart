@@ -5,6 +5,7 @@ import 'package:onboarding_screen/helper/keyboard.dart';
 import 'dart:core';
 
 import 'package:onboarding_screen/screens/components/default_button.dart';
+import 'package:onboarding_screen/screens/components/form_error.dart';
 import 'package:onboarding_screen/screens/login_success/login_success.dart';
 
 class SignInForm extends StatefulWidget {
@@ -19,7 +20,6 @@ class _SignInFormState extends State<SignInForm> {
   bool remember = false;
   late double height, width;
   final List<String> errors = [];
-
 
   void addError({required String error}) {
     if (!errors.contains(error))
@@ -45,9 +45,9 @@ class _SignInFormState extends State<SignInForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: height * 0.036),
+          SizedBox(height: height * 0.040),
           buildPasswordFormField(),
-          SizedBox(height: height * 0.036),
+          SizedBox(height: height * 0.040),
           Container(
             padding: const EdgeInsets.fromLTRB(6, 6, 15, 9),
             // color: Colors.amber,
@@ -58,7 +58,7 @@ class _SignInFormState extends State<SignInForm> {
                   activeColor: kPrimaryColor,
                   onChanged: (val) {
                     setState(() {
-                      //remember = val;
+                      remember = val!;
                     });
                   },
                 ),
@@ -74,16 +74,21 @@ class _SignInFormState extends State<SignInForm> {
               ],
             ),
           ),
-          //Container(),
-          // SizedBox(height: height * 0.036),
-          DefaultButton(text: "Continue", press: () {
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => LoginSuccessScreen()));
-
-          }),
+          FormError(errors: errors),
+          SizedBox(height: height * 0.040),
+          DefaultButton(
+              text: "Continue",
+              press: () {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  // if all are valid then go to success screen
+                  KeyboardUtil.hideKeyboard(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginSuccessScreen()));
+                }
+              }),
         ],
       ),
     );
@@ -105,7 +110,7 @@ class _SignInFormState extends State<SignInForm> {
         if (value!.isEmpty) {
           addError(error: kEmailNullError);
           return "";
-        } else if (emailValidatorRegExp.hasMatch(value)) {
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);
           return "";
         }
@@ -139,18 +144,18 @@ class _SignInFormState extends State<SignInForm> {
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: kInvalidEmailError);
+          removeError(error: kPassNullError);
+        } else if (value.length >= 8) {
+          removeError(error: kShortPassError);
         }
-        return null;
+        password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kEmailNullError);
+          addError(error: kPassNullError);
           return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
+        } else if (value.length < 8) {
+          addError(error: kShortPassError);
           return "";
         }
         return null;

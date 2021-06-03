@@ -33,6 +33,11 @@ class SplashContent extends StatelessWidget {
         Text(
           text,
           textAlign: TextAlign.center,
+          style: TextStyle(
+
+            color: CustomColors.firebaseNavy,
+          //  fontWeight: FontWeight.bold,
+          ),
         ),
         Spacer(flex: 2),
         Image.asset(

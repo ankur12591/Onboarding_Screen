@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -17,7 +17,7 @@ const kTextColor = Color(0xFF757575);
 const kAnimationDuration = Duration(milliseconds: 200);
 //
 // final headingStyle = TextStyle(
-//   fontSize: getProportionateScreenWidth(28),
+//   fontSize: MediaQuery.of(context).size.width * ,
 //   fontWeight: FontWeight.bold,
 //   color: Colors.black,
 //   height: 1.5,
@@ -40,14 +40,11 @@ class Constants {
   static DateFormat hmFormate = DateFormat("hh:mm");
 }
 
-
-
 class reqserver {
   static String baseurl = 'https://php2.shaligraminfotech.com/owle/public/api/';
   static String getBase1 = 'php2.shaligraminfotech.com';
   static String getBase2 = '/owle/public/api/';
   static String imgbaseurl = 'http://guard-my-vote.s3.us-east-2.amazonaws.com/';
-
 
   static String loginUrl = 'auth/login';
   static String forgotpwdUrl = 'auth/forgot-password';
@@ -56,10 +53,7 @@ class reqserver {
   static String getSurveyCountUrl = 'get-survey-count';
   static String getSurveyListUrl = 'get-survey-list';
   static String getSurveyQuestionUrl = 'get-survey-questions';
-
-
 }
-
 
 class CustomColors {
   static final Color firebaseNavy = Color(0xFF2C384A);
@@ -70,10 +64,9 @@ class CustomColors {
   static final Color googleBackground = Color(0xFF4285F4);
 }
 
-
 // Form Error
 final RegExp emailValidatorRegExp =
-RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";

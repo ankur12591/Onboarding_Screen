@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
+import 'package:onboarding_screen/screens/animation/liquide_swipe_animation.dart';
 import 'package:onboarding_screen/screens/components/default_button.dart';
 import 'package:onboarding_screen/screens/sign_in/sign_in_screen.dart';
 import 'package:onboarding_screen/screens/splash/splash_content.dart';
@@ -91,13 +92,8 @@ class _SplashScreenState extends State<SplashScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      // Container(height: 15,
-                                      //   width: 15,
-                                      //   child: CircularProgressIndicator(
-                                      //     valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrangeAccent),
-                                      //   ),
-                                      // )
-                                      SignInScreen()
+                                  LiquideSwipe()
+                                      //SignInScreen()
                               )
                           );
                         },
