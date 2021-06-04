@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:onboarding_screen/screens/gauge_view/gauge_view.dart';
+import 'package:onboarding_screen/screens/profile/show_dialog/show_dialog.dart';
 import 'package:onboarding_screen/screens/splash/splash.dart';
 import 'package:onboarding_screen/screens/splash/splash_with_animation.dart';
 import 'package:onboarding_screen/theme.dart';
@@ -20,7 +22,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
-      home: SplashScreen1(),
+      home:
+      FlutterGaugePage(),
+      //Dialogs(),
+      //SplashScreen1(),
       // We use routeName so that we dont need to remember the name
      // initialRoute: SplashScreen.routeName,
      // routes: routes,

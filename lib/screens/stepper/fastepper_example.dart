@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onboarding_screen/screens/profile/show_dialog/custom_dialog_box.dart';
 import 'package:onboarding_screen/services/crud.dart';
 import 'package:random_string/random_string.dart';
 
@@ -657,6 +658,16 @@ class _FAStepperExampleState extends State<FAStepperExample> {
                     ),
               ElevatedButton(
                 onPressed: () {
+                  // showDialog(context: context,
+                  //     builder: (BuildContext context){
+                  //       return const CustomDialogBox(
+                  //
+                  //         title: "Profile Details",
+                  //         descriptions: "",
+                  //         text: "Yes",
+                  //       );
+                  //     }
+                  // );
                   demoList = [];
                   viewList();
                 },
@@ -705,4 +716,12 @@ class _FAStepperExampleState extends State<FAStepperExample> {
       FAStepstate.editing;
     }
   }
+
+
+
+
+
 }
+
+
+
