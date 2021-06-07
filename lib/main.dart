@@ -32,10 +32,10 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: theme(),
         home:
-        PushNotification2(),
+       // PushNotification2(),
         //FlutterGaugePage(),
         //Dialogs(),
-       // SplashScreen1(),
+        SplashScreen1(),
         // We use routeName so that we dont need to remember the name
        // initialRoute: SplashScreen.routeName,
        // routes: routes,
