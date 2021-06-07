@@ -125,9 +125,13 @@ class _FurnitureHomeState extends State<FurnitureHome> {
                     future: fetchProducts(),
                     builder: (context, AsyncSnapshot snapshot) {
                       return snapshot.hasData
-                          ? RecommandProducts(
-                              products: snapshot.data,
-                            )
+                          ? Container(
+
+                       // color: Colors.orange,
+                            child: RecommandProducts(
+                                products: snapshot.data,
+                              ),
+                          )
                           : Center(child: Image.asset('assets/ripple.gif'));
                     },
                   ),

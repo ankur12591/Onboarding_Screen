@@ -51,6 +51,7 @@ dependencies:
   fa_stepper:
   liquid_swipe: ^2.1.0
   flutter_gauge:
+  firebase_messaging: ^10.0.1
 #  shared_preferences: ^0.4.2
 #  fluttertoast: ^2.0.7
 
