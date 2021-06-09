@@ -158,10 +158,27 @@ class _DynamicEventState extends State<DynamicEvent> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFF36A9C),
-        child: Icon(Icons.add),
-        onPressed: _showAddDialog,
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Color(0xFFF36A9C),
+      //   child: Icon(Icons.add),
+      //   onPressed: _showAddDialog,
+      // ),
+
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: FloatingActionButton(
+          backgroundColor: Color(0xFFF36A9C),
+         // elevation: 8.0,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.add,
+            ),
+          ),
+          onPressed: _showAddDialog,
+        ),
       ),
     );
   }
