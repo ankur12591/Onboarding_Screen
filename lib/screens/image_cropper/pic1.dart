@@ -7,9 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onboarding_screen/base_project/common/constants.dart';
 import 'package:onboarding_screen/screens/profile/components/profile_menu.dart';
 
-class Pic extends StatefulWidget {
+class ImageCropperWithCamAndGallery extends StatefulWidget {
   @override
-  State<Pic> createState() => _PicState();
+  State<ImageCropperWithCamAndGallery> createState() => _ImageCropperWithCamAndGalleryState();
 }
 
 enum AppState {
@@ -18,21 +18,26 @@ enum AppState {
   cropped,
 }
 
-class _PicState extends State<Pic> {
+class _ImageCropperWithCamAndGalleryState extends State<ImageCropperWithCamAndGallery> {
   PickedFile? _image;
   late AppState state;
 
   final picker = ImagePicker();
 
-  PickedFile? _imageFile;
+ // PickedFile? _imageFile;
+  File? _imageFile;
+
   final ImagePicker _picker = ImagePicker();
 
   _imgFromCamera() async {
     final pickedFile = await _picker.getImage(
       source: ImageSource.camera,
     );
+
     setState(() {
-      _imageFile = pickedFile;
+     // _imageFile = pickedFile
+      _imageFile = pickedFile as File?;
+
     });
   }
 
@@ -40,10 +45,18 @@ class _PicState extends State<Pic> {
     final pickedFile = await _picker.getImage(
       source: ImageSource.gallery,
     );
+
+
     setState(() {
-      _imageFile = pickedFile;
+      _imageFile =
+          //pickedFile
+      File(pickedFile!.path);
+     // _imageFile = pickedFile as File?;
+
     });
   }
+
+
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -86,8 +99,6 @@ class _PicState extends State<Pic> {
         });
   }
 
-  // static List<String> picOptionlist = <String>['Photo Gallery', 'Camera'];
-  // static List iconList = ['Icons.photo_library', 'Icons.photo_camera'];
 
   void _showPickerListview(context) {
     showModalBottomSheet(
@@ -170,9 +181,10 @@ class _PicState extends State<Pic> {
           title: 'Cropper',
         ));
     if (croppedFile != null) {
-      _imageFile = croppedFile as PickedFile?;
+     // _imageFile = croppedFile as PickedFile?;
+      _imageFile = croppedFile ;
       setState(() {
-       // state = AppState.cropped;
+        state = AppState.cropped;
       });
     }
   }
@@ -199,17 +211,17 @@ class _PicState extends State<Pic> {
               child: GestureDetector(
                 onTap: () {
                  // _showPicker(context);
-                 //  if (state == AppState.free)
-                 // {   _showPickerListview(context);
-                 //  setState(() {
-                 //    state = AppState.picked;
-                 //  }); }
-                 //  else if (state == AppState.picked)
-                 //    _cropImage();
+                  if (state == AppState.free)
+                 {   _showPickerListview(context);
+                  setState(() {
+                    state = AppState.picked;
+                  }); }
+                  else if (state == AppState.picked)
+                    _cropImage();
 
-                  // else if (state == AppState.cropped) _clearImage();
+               //   else if (state == AppState.cropped) _clearImage();
 
-                  _showPickerListview(context);
+                //  _showPickerListview(context);
                   // setState(() {
                   //   state = AppState.picked;
                   // });

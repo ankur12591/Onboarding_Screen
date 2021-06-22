@@ -3,6 +3,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding_screen/screens/calender/calender.dart';
 import 'package:onboarding_screen/screens/image_cropper/image_cropper1.dart';
+import 'package:onboarding_screen/screens/profile/components/pic.dart';
+import 'package:onboarding_screen/screens/image_cropper/pic1.dart';
 import 'package:onboarding_screen/screens/search_module/search_module.dart';
 import 'package:onboarding_screen/screens/splash/splash_with_animation.dart';
 import 'package:onboarding_screen/theme.dart';
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: theme(),
         home:
+       // Pic(),
+      //  ImageCropperWithCamAndGallery(),
      //   SearchModuleExample(),
 
         //TableEventsExample(),
