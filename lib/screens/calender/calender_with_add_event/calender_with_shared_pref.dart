@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:onboarding_screen/base_project/common/enums.dart';
+import 'package:onboarding_screen/screens/calender/calender_with_add_event/add_event.dart';
+import 'package:onboarding_screen/screens/components/coustom_bottom_nav_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -112,7 +115,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                     margin: const EdgeInsets.all(4.0),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: Colors.greenAccent[700],
                         borderRadius: BorderRadius.circular(20.0)),
                     child: Text(
                       date.day.toString(),
@@ -149,7 +152,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                         child: Text(
                       event,
                       style: TextStyle(
-                          color: Colors.blue,
+                          color: Colors.blueAccent,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     )),
@@ -178,8 +181,18 @@ class _DynamicEventState extends State<DynamicEvent> {
             ),
           ),
           onPressed: _showAddDialog,
+          // onPressed: () {
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => AddEventPage(
+          //
+          //         ),
+          //       ));
+          // },
         ),
       ),
+      //bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }
 
@@ -191,7 +204,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                 borderRadius: BorderRadius.circular(10),
               ),
               backgroundColor: Colors.white70,
-              title: Text("Add Events"),
+              title: Text("Add Events",style: TextStyle(fontWeight: FontWeight.w500),),
               content: TextField(
                 controller: _eventController,
                 decoration: InputDecoration(
@@ -208,30 +221,60 @@ class _DynamicEventState extends State<DynamicEvent> {
                 ),
               ),
               actions: <Widget>[
-                FlatButton(
-                  child: Text(
-                    "Save",
-                    style: TextStyle(
-                        color: Color(0xFFF36A9C), fontWeight: FontWeight.bold),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xFFF36A9C))),
+                    onPressed: () async {
+
+                      if (_eventController.text.isEmpty) return;
+                      setState(() {
+                        if (_events[_controller.selectedDay] != null) {
+                          _events[_controller.selectedDay]!
+                              .add(_eventController.text);
+                        } else {
+                          _events[_controller.selectedDay] = [
+                            _eventController.text
+                          ];
+                        }
+                        prefs.setString(
+                            "events", json.encode(encodeMap(_events)));
+                        _eventController.clear();
+                        Navigator.pop(context);
+                      });
+
+
+                    },
+                    child: Text("Save",),
                   ),
-                  onPressed: () {
-                    if (_eventController.text.isEmpty) return;
-                    setState(() {
-                      if (_events[_controller.selectedDay] != null) {
-                        _events[_controller.selectedDay]!
-                            .add(_eventController.text);
-                      } else {
-                        _events[_controller.selectedDay] = [
-                          _eventController.text
-                        ];
-                      }
-                      prefs.setString(
-                          "events", json.encode(encodeMap(_events)));
-                      _eventController.clear();
-                      Navigator.pop(context);
-                    });
-                  },
-                )
+                ),
+
+
+                // FlatButton(
+                //   child: Text(
+                //     "Save",
+                //     style: TextStyle(
+                //         color: Color(0xFFF36A9C), fontWeight: FontWeight.bold),
+                //   ),
+                //   onPressed: () {
+                //     if (_eventController.text.isEmpty) return;
+                //     setState(() {
+                //       if (_events[_controller.selectedDay] != null) {
+                //         _events[_controller.selectedDay]!
+                //             .add(_eventController.text);
+                //       } else {
+                //         _events[_controller.selectedDay] = [
+                //           _eventController.text
+                //         ];
+                //       }
+                //       prefs.setString(
+                //           "events", json.encode(encodeMap(_events)));
+                //       _eventController.clear();
+                //       Navigator.pop(context);
+                //     });
+                //   },
+                // )
               ],
             ));
   }
