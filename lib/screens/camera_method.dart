@@ -6,15 +6,15 @@ import 'package:image_picker/image_picker.dart';
 
 onImageButtonPressed(ImageSource source,
     {required BuildContext context, capturedImageFile}) async {
-  final ImagePicker _picker = ImagePicker();
+  // final ImagePicker _picker = ImagePicker();
   File val;
 
-  final pickedFile = await _picker.getImage(
+  final pickedFile = await ImagePicker.pickImage(
     source: source,
   );
 
   val = (await ImageCropper.cropImage(
-    sourcePath: pickedFile!.path,
+    sourcePath: pickedFile.path,
     aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
     compressQuality: 100,
     maxHeight: 700,

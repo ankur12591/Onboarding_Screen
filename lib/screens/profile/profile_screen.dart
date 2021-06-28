@@ -42,10 +42,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //     MaterialPageRoute(
                 //         builder: (context) => MyAccount())),
 
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FAStepperExample ())),
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => FAStepperExample ())),
               },
             ),
             ProfileMenu(
@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.profile),
+     // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.profile),
     );
   }
 }
